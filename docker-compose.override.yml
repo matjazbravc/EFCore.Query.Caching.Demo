@@ -1,0 +1,44 @@
+version: '3.9'
+
+services:
+  mysql:
+    environment:
+      - MYSQL_DATABASE=CityBikes
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+      - MYSQL_ROOT_PASSWORD=admin
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+
+  redis_cache:
+    environment:
+      - REDIS_PASSWORD=admin
+      - REDIS_PORT=6379
+    ports:
+      - 6379:6379
+
+  efcorequerycachingdemo:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ServiceConfig__MySqlConnectionString=server=mysql;user=admin;password=admin;port=3306;database=CityBikes;
+      - EasyCachingConfig__MaxRdSecond=120
+      - EasyCachingConfig__EnableLogging=false
+      - EasyCachingConfig__LockMs=5000
+      - EasyCachingConfig__SleepMs=300
+      - EasyCachingConfig__ExpirationTimeoutMs=300000
+      - EasyCachingConfig__CacheNulls=false
+      - EasyCachingConfig__DbConfig_Password=admin
+      - EasyCachingConfig__DbConfig_IsSsl=false
+      - EasyCachingConfig__DbConfig_SslHost=null
+      - EasyCachingConfig__DbConfig_ConnectionTimeout=15000
+      - EasyCachingConfig__DbConfig_AllowAdmin=true
+      - EasyCachingConfig__DbConfig_Endpoint=redis_cache
+      - EasyCachingConfig__DbConfig_Port=6379
+    ports:
+      - 9400:80
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

@@ -1,0 +1,61 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql
+    container_name: EFCore.Query.Caching.Demo_MySQL
+    restart: always
+    volumes:
+      - mysql_data:/var/lib/mysql
+    labels:
+      org.label-schema.group: "Database"
+    networks:
+      - common_network
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  redis_cache:
+    image: redis:latest
+    container_name: EFCore.Query.Caching.Demo_RedisCache
+    restart: always
+    privileged: true
+    command: [ "redis-server" ]
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+    volumes: 
+      - redis_cache:/data
+    networks:
+      - common_network
+
+  efcorequerycachingdemo:
+    container_name: EFCore.Query.Caching.Demo_OpenAPI
+    image: efcorequerycachingdemo:latest
+    restart: on-failure
+    hostname: efcorequerycachingdemo
+    build:
+      context: .
+      dockerfile: src/EFCore.Query.Caching.Demo/Dockerfile
+    command: sh -c "/wait && /sayhello"
+    networks:
+      - common_network
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis_cache:
+        condition: service_healthy
+
+volumes:
+    mysql_data:
+      driver: local
+    redis_cache:
+      driver: local
+
+networks:
+    common_network:
+        driver: bridge
