@@ -1,9 +1,8 @@
 ﻿using EFCoreQueryCachingDemo.Models.Dto;
 
-namespace EFCoreQueryCachingDemo.HttpClients
+namespace EFCoreQueryCachingDemo.HttpClients;
+
+public interface ICityBikesHttpClient
 {
-    public interface ICityBikesHttpClient
-	{
-		Task<CityBikesNetworks?> GetCityBikesNetworksAsync(CancellationToken cancellationToken);
-	}
+  Task<CityBikesNetworks?> GetCityBikesNetworksAsync(CancellationToken cancellationToken);
 }

@@ -2,8 +2,8 @@
 using EFCoreQueryCachingDemo.Services.Converters;
 using EFCoreQueryCachingDemo.Services.Repositories;
 
-namespace EFCoreQueryCachingDemo.Services
-{
+namespace EFCoreQueryCachingDemo.Services;
+
 	public class CityBikesService : ICityBikesService
 	{
 		private readonly ILogger<CityBikesService> _logger;
@@ -37,4 +37,3 @@ namespace EFCoreQueryCachingDemo.Services
 			return result;
 		}
 	}
-}

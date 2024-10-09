@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
 using StackExchange.Redis;
 
-namespace EFCoreQueryCachingDemo.Services
-{
+namespace EFCoreQueryCachingDemo.Services;
+
 	public class RedisCacheService : IRedisCacheService
 	{
 		private readonly IDatabase _database;
@@ -45,4 +45,3 @@ namespace EFCoreQueryCachingDemo.Services
 			return await _database.PingAsync();
 		}
 	}
-}

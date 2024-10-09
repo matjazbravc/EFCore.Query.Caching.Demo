@@ -1,11 +1,12 @@
 using EFCoreQueryCachingDemo;
 using EFCoreQueryCachingDemo.Extensions;
 using Serilog;
+using Serilog.Core;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Create the logger and setup sinks, filters and properties
-var logger = new LoggerConfiguration()
+Logger logger = new LoggerConfiguration()
 	.ReadFrom.Configuration(builder.Configuration)
 	.Enrich.FromLogContext()
 	.CreateLogger();
@@ -18,12 +19,12 @@ builder.Host
 	.UseContentRoot(Directory.GetCurrentDirectory())
 	.ConfigureAppConfiguration((builderContext, config) =>
 	{
-		var env = builderContext.HostingEnvironment;
+    IHostEnvironment env = builderContext.HostingEnvironment;
 		config.SetBasePath(env.ContentRootPath);
 		config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 		config.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
 		config.AddEnvironmentVariables();
 	});
 
-var app = builder.Build<Startup>();
-app.Run();
+WebApplication app = builder.Build<Startup>();
+await app.RunAsync();

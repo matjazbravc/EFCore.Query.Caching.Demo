@@ -1,7 +1,6 @@
-﻿namespace EFCoreQueryCachingDemo.Database
+﻿namespace EFCoreQueryCachingDemo.Database;
+
+public interface IDataSeeder
 {
-	public interface IDataSeeder
-	{
-		Task InitializeAsync();
-	}
+  Task InitializeAsync();
 }

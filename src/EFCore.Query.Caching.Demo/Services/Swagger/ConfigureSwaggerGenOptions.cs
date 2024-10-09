@@ -5,8 +5,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace EFCoreQueryCachingDemo.Services.Swagger
-{
+namespace EFCoreQueryCachingDemo.Services.Swagger;
+
 	/// <summary>
 	/// Configures the Swagger generation options
 	/// </summary>
@@ -83,4 +83,3 @@ namespace EFCoreQueryCachingDemo.Services.Swagger
 			return info;
 		}
 	}
-}

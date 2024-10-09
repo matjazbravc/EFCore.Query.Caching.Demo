@@ -1,7 +1,6 @@
-﻿namespace EFCoreQueryCachingDemo.Services.Configuration
+﻿namespace EFCoreQueryCachingDemo.Services.Configuration;
+
+public class ServiceConfig
 {
-	public class ServiceConfig
-	{
-		public string MySqlConnectionString { get; set; }
-	}
+  public string MySqlConnectionString { get; set; }
 }

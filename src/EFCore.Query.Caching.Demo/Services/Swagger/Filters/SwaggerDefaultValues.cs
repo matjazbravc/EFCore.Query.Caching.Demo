@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace EFCoreQueryCachingDemo.Services.Swagger.Filters
-{
+namespace EFCoreQueryCachingDemo.Services.Swagger.Filters;
+
 	/// <summary>
 	/// Represents the Swagger/Swashbuckle operation filter used to document the implicit API version parameter.
 	/// </summary>
@@ -54,4 +54,3 @@ namespace EFCoreQueryCachingDemo.Services.Swagger.Filters
 			}
 		}
 	}
-}

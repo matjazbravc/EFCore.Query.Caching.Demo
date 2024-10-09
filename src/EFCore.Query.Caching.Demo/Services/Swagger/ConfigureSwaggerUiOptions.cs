@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
-namespace EFCoreQueryCachingDemo.Services.Swagger
-{
+namespace EFCoreQueryCachingDemo.Services.Swagger;
+
 	/// <summary>
 	/// Configures the Swagger UI options
 	/// </summary>
@@ -41,4 +41,3 @@ namespace EFCoreQueryCachingDemo.Services.Swagger
 			}
 		}
 	}
-}

@@ -43,7 +43,6 @@ public void ConfigureServices(IServiceCollection services)
 	{
 		// Use EasyCachingCoreProvider as cache provider
 		options.UseEasyCachingCoreProvider(ProviderName, isHybridCache: false)
-			.DisableLogging(true) // Set it to true for maximum performance
 			.UseCacheKeyPrefix("EF_"); // Redis cache key prefix
 
 		// Puts the whole system in cache. In this case calling the 'Cacheable()' methods won't be necessary.
@@ -154,14 +153,14 @@ The executed queries complete much faster since they are cached. With a small tw
 
 Enjoy!
 
-- [Visual Studio](https://www.visualstudio.com/vs/community) 2022 17.4.3 or greater
-- [.NET SDK 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+## Prerequisites
+- [Visual Studio](https://www.visualstudio.com/vs/community) 2022 17.2.6 or greater
+- [.NET SDK 8.0](https://dotnet.microsoft.com/download/dotnet/8.0)
 - [Docker](https://www.docker.com/resources/what-container)
 
 ## Tags & Technologies
-- [.NET 6.0](https://github.com/dotnet/core/blob/main/release-notes/6.0/6.0.9/6.0.9.md)
+- [.NET 8](https://github.com/dotnet/core/blob/main/release-notes/8.0)
 - [Docker](https://www.docker.com/resources/what-container)  
-- [ASP.NET Core 6.0](https://learn.microsoft.com/en-us/aspnet/core/release-notes/aspnetcore-6.0?view=aspnetcore-6.0)
 - [CityBikes API Documentation](https://api.citybik.es/v2/)
 - [MySQL](https://www.mysql.com/)
 - [EasyCaching](https://github.com/dotnetcore/EasyCaching)

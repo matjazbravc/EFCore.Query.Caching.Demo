@@ -1,5 +1,5 @@
-﻿namespace EFCoreQueryCachingDemo.Services
-{
+﻿namespace EFCoreQueryCachingDemo.Services;
+
 	public static class EnvironmentVariableProvider
 	{
 		public static T GetSetting<T>(string name, object defValue) 
@@ -12,4 +12,3 @@
 			return (T)Convert.ChangeType(value, typeof(T));
 		}
 	}
-}
