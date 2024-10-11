@@ -1,4 +1,5 @@
-﻿using EFCoreQueryCachingDemo.Controllers.Base;
+﻿using Asp.Versioning;
+using EFCoreQueryCachingDemo.Controllers.Base;
 using EFCoreQueryCachingDemo.Services.Configuration;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;

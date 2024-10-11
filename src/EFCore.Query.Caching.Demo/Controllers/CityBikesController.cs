@@ -6,6 +6,7 @@ using EFCoreQueryCachingDemo.Services.Repositories;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Asp.Versioning;
 
 namespace EFCoreQueryCachingDemo.Controllers;
 

@@ -34,11 +34,14 @@ public class Startup(IConfiguration configuration)
     services.AddHttpClient("PollyHttpClient").AddPolicyHandler(RetryPolicies.GetHttpClientRetryPolicy());
 
     // Read configurations
-    var serviceConfig = Configuration.GetSection("ServiceConfig").Get<ServiceConfig>();
-    var easyCachingConfig = Configuration.GetSection("EasyCachingConfig").Get<EasyCachingConfig>();
+    ServiceConfig? serviceConfig = Configuration.GetSection("ServiceConfig").Get<ServiceConfig>();
+    ArgumentNullException.ThrowIfNull(serviceConfig);
+
+    EasyCachingConfig? easyCachingConfig = Configuration.GetSection("EasyCachingConfig").Get<EasyCachingConfig>();
+    ArgumentNullException.ThrowIfNull(easyCachingConfig);
 
     // Register Multiplexer
-    var multiplexer = RedisHelper.ConnectRedis(easyCachingConfig);
+    ConnectionMultiplexer multiplexer = RedisHelper.ConnectRedis(easyCachingConfig);
     services.AddSingleton<IConnectionMultiplexer>(multiplexer);
 
     // Register logger
@@ -67,7 +70,7 @@ public class Startup(IConfiguration configuration)
       // If you specify the 'Cacheable()' method, its setting will override this global setting.
       // If you want to exclude some queries from this global cache, apply the 'NotCacheable()' method to them.
       // https://github.com/VahidN/EFCoreSecondLevelCacheInterceptor
-      var timeOutMs = EnvironmentVariableProvider.GetSetting<int>(
+      int timeOutMs = EnvironmentVariableProvider.GetSetting<int>(
         "EasyCachingConfig__ExpirationTimeoutMs", easyCachingConfig.ExpirationTimeoutMs);
       options.CacheAllQueries(CacheExpirationMode.Sliding, TimeSpan.FromMilliseconds(timeOutMs));
     });
@@ -127,7 +130,7 @@ public class Startup(IConfiguration configuration)
       }, SerializerName);
     });
 
-    var mySqlConnectionString = EnvironmentVariableProvider.GetSetting<string>("ServiceConfig__MySqlConnectionString", serviceConfig.MySqlConnectionString);
+    string mySqlConnectionString = EnvironmentVariableProvider.GetSetting<string>("ServiceConfig__MySqlConnectionString", serviceConfig.MySqlConnectionString);
 
     // Registers the given database context as a service
     services.AddDbContextPool<DataContext>((provider, options) =>
@@ -182,7 +185,7 @@ public class Startup(IConfiguration configuration)
 
     // Seed data
     using IServiceScope scope = services.BuildServiceProvider().CreateScope();
-    var dataSeeder = scope.ServiceProvider.GetRequiredService<IDataSeeder>();
+    IDataSeeder dataSeeder = scope.ServiceProvider.GetRequiredService<IDataSeeder>();
     await dataSeeder.InitializeAsync().ConfigureAwait(false);
   }
 
